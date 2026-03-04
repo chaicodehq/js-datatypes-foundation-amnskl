@@ -46,21 +46,42 @@
  *   splitAndJoinRangoli("red,blue", ",", "-")  // => "red-blue"
  */
 export function repeatPattern(pattern, times) {
-  // Your code here
+  //Agar pattern string nahi hai ya times positive integer nahi hai, return ""
+  if(typeof pattern !== "string" || isNaN(times) || !Number.isInteger(times) || times<=0) return ""
+  //.repeat(times) use karke pattern ko repeat karo
+  return pattern.repeat(times);
 }
 
 export function extractRangoliCenter(design, start, end) {
-  // Your code here
+  // Agar design string nahi hai, return ""
+  // Agar start/end numbers nahi hain, return ""
+  if(isNaN(start) || !Number.isInteger(start) || isNaN(end) ||!Number.isInteger(end) || typeof design !== "string") return ""
+  // .slice(start, end) use karke rangoli ka center part nikalo
+  return design.slice(start, end);
 }
 
 export function splitAndJoinRangoli(colorString, oldSep, newSep) {
-  // Your code here
+  // Agar colorString string nahi hai, return ""
+  if(typeof colorString !== "string") return ""
+  // Example: splitAndJoinRangoli("red,blue,green", ",", " | ") => "red | blue | green"
+  return colorString.split(oldSep).join(newSep);
 }
 
 export function replaceRangoliColor(design, oldColor, newColor) {
-  // Your code here
+  // Agar koi bhi param string nahi hai, return ""
+  if(typeof design !== "string" || typeof oldColor !== "string" || typeof newColor !== "string" ) return ""
+  // Example: replaceRangoliColor("red-blue-red-green-red", "red", "pink")
+  //          => "pink-blue-pink-green-pink"
+  return design.replaceAll(oldColor, newColor)
 }
 
 export function makeRangoliBorder(char, length) {
-  // Your code here
+  // Agar char string nahi hai ya length positive number nahi hai, return ""
+  if(typeof char !== "string" || isNaN(length) || !Number.isInteger(length) || length <= 0) return ""
+
+  // Example: makeRangoliBorder("*", 5) => "*****"
+  // Example: makeRangoliBorder("=-", 7) => "=-=-=-="
+  let repeatLength = Math.ceil(length/char.length)
+  if (repeatLength <= 0 ) repeatLength++;
+  return char.repeat(repeatLength).slice(0,length);
 }

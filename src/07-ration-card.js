@@ -53,21 +53,48 @@
  *   removeRationCard(registry, "RC001")    // => true
  */
 export function getFamilyNames(registry) {
-  // Your code here
+  // Agar registry object nahi hai ya null hai, return []
+  if(typeof registry !== "object" || Array.isArray(registry) || !registry) return []
+  // Object.keys() se saare ration card IDs nikalo
+  return Object.keys(registry)
+  // Example: getFamilyNames({"RC001":{...},"RC002":{...}}) => ["RC001", "RC002"]
 }
 
 export function getAllFamilies(registry) {
-  // Your code here
+  // Agar registry object nahi hai ya null hai, return []
+  if(typeof registry !== "object" || !registry) return []
+  // Object.values() se saari family objects nikalo
+  return Object.values(registry)
+  // Example: getAllFamilies({"RC001":{head:"Ram"}}) => [{head:"Ram"}]
 }
 
 export function getRationCardEntries(registry) {
-  // Your code here
+  // Agar registry object nahi hai ya null hai, return []
+  if(typeof registry !== "object" || !registry) return []
+  // Object.entries() se [id, family] pairs nikalo
+  return Object.entries(registry)
+  // Example: getRationCardEntries({"RC001":{head:"Ram"}}) => [["RC001",{head:"Ram"}]]
 }
 
 export function hasRationCard(registry, cardId) {
-  // Your code here
+  // Agar registry object nahi hai ya cardId string nahi hai, return false
+  if(typeof registry !== "object" || !registry || typeof cardId !== "string" || cardId.trim() === "") return false
+  // .hasOwnProperty() se check karo ki specific ration card hai ya nahi
+  return registry.hasOwnProperty(cardId);
+  // Example: hasRationCard({"RC001":{head:"Ram"}}, "RC001") => true
+  // Example: hasRationCard({"RC001":{head:"Ram"}}, "RC999") => false
 }
 
 export function removeRationCard(registry, cardId) {
-  // Your code here
+  // Agar registry object nahi hai ya cardId string nahi hai, return false
+  if(typeof registry !== "object" || !registry || typeof cardId !== "string" || cardId.trim() === "") return false
+  // delete operator se ration card remove karo
+  // Pehle hasOwnProperty se check karo ki card hai ya nahi
+  if(registry.hasOwnProperty(cardId)) return delete registry[cardId]
+
+  return false
+  // Return true agar card tha aur delete hua, false otherwise
+  // Example: removeRationCard({"RC001":{head:"Ram"}}, "RC001") => true
 }
+
+

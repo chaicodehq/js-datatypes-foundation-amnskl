@@ -46,21 +46,37 @@
  *   hasSpecialIngredient("Elaichi Chai", "elaichi")  // => true
  */
 export function getChaiOrderLength(order) {
-  // Your code here
+  // Agar order string nahi hai, return -1
+  if(typeof order !== "string") return -1
+  // Pehle .trim() se extra spaces hatao, phir .length se count karo
+  return order.trim().length
 }
 
 export function shoutChaiOrder(order) {
-  // Your code here
+  //  Agar order string nahi hai ya trim ke baad empty hai, return ""
+  if(typeof order !== "string" || order.trim().length <= 0) return ""
+  //  Guddu apne helper ko UPPERCASE mein order shout karta hai
+  return order.trim().toUpperCase();
 }
 
 export function whisperChaiOrder(order) {
-  // Your code here
+  //Agar order string nahi hai ya trim ke baad empty hai, return ""
+  if(typeof order !== "string" || order.trim().length <= 0) return ""
+  //Jab koi secretly order karta hai, lowercase mein likho
+  return order.trim().toLowerCase();
 }
 
 export function hasSpecialIngredient(order, ingredient) {
-  // Your code here
+  //  Agar koi bhi string nahi hai, return false
+  if(typeof order !== "string" || typeof ingredient !== "string") return false
+  //  Check karo ki order mein koi special ingredient hai ya nahi
+  return order.toLowerCase().includes(ingredient.toLowerCase())
 }
 
 export function getFirstAndLastChar(order) {
-  // Your code here
+  //Agar order string nahi hai ya trim ke baad empty hai, return null
+  if(typeof order !== "string" || order.trim().length === 0) return null;
+  //.charAt(0) se pehla character aur .at(-1) se aakhri character nikalo
+  const trimmedOrder = order.trim();
+  return {first : trimmedOrder.charAt(0), last : trimmedOrder.at(-1)}
 }

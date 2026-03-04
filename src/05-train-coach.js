@@ -48,21 +48,41 @@
  *   areAllConfirmed(passengers)          // => true/false
  */
 export function findPassenger(passengers, name) {
-  // Your code here
+  // Agar passengers array nahi hai ya name string nahi hai, return undefined
+  if(!Array.isArray(passengers) || typeof name !== "string" || name.trim() === "") return undefined
+  // .find() se passenger object dhundho by name (case-insensitive)
+  return passengers.find(passenger => passenger.name.toLowerCase() === name.toLowerCase())
+  // Example: findPassenger([{name:"Rahul",coach:"S5",seat:42,status:"confirmed"}], "rahul")
+  //          => {name:"Rahul", coach:"S5", seat:42, status:"confirmed"}
 }
 
 export function getPassengerIndex(passengers, name) {
-  // Your code here
+  // Agar passengers array nahi hai ya name string nahi hai, return -1
+  if(!Array.isArray(passengers) || typeof name !== "string" || name.trim() === "") return -1
+  // .findIndex() se passenger ka position nikalo (case-insensitive)
+  return passengers.findIndex(passenger => passenger.name.toLowerCase() === name.toLowerCase())
+  // Example: getPassengerIndex([{name:"Rahul"}, {name:"Priya"}], "Priya") => 1
 }
 
 export function isAnyWaitlisted(passengers) {
-  // Your code here
+  // Agar passengers array nahi hai ya empty hai, return false
+  if(!Array.isArray(passengers) || passengers.length === 0) return false
+  // .some() se check karo ki koi bhi passenger "waitlisted" hai ya nahi
+  return passengers.some(passenger => passenger.status === "waitlisted") 
+  // Example: isAnyWaitlisted([{status:"confirmed"}, {status:"waitlisted"}]) => true
 }
 
 export function areAllConfirmed(passengers) {
-  // Your code here
+  if(!Array.isArray(passengers) || passengers.length === 0) return false
+  return passengers.every(passenger => passenger.status === "confirmed")
+
 }
 
 export function getWaitlistedPassengers(passengers) {
-  // Your code here
+  // Agar passengers array nahi hai, return []
+  if(!Array.isArray(passengers)) return []
+  // .filter() se sirf "waitlisted" passengers return karo
+  return passengers.filter(passenger => passenger.status === "waitlisted")
+  // Example: getWaitlistedPassengers([{name:"A",status:"confirmed"},{name:"B",status:"waitlisted"}])
+  //          => [{name:"B", status:"waitlisted"}]
 }

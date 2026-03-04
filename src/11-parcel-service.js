@@ -52,21 +52,58 @@
  *   stringToChars("Dak")                  // => ["D", "a", "k"]
  */
 export function parcelToJSON(parcel) {
-  // Your code here
+  // JSON.stringify() se parcel object ko JSON string mein convert karo
+  // try-catch use karo (circular references ke liye)
+  // Agar parcel undefined hai ya error aaye, return ""
+  if(parcel === undefined) return ""
+  try {
+    return JSON.stringify(parcel)
+  } catch (e) {
+    return ""
+  }
+  // Example: parcelToJSON({id:"P001", weight:2.5})
+  //          => '{"id":"P001","weight":2.5}'
+
 }
 
 export function jsonToParcel(jsonString) {
-  // Your code here
+  // JSON.parse() se JSON string ko wapas object mein convert karo
+  // try-catch use karo (invalid JSON ke liye)
+  // Agar jsonString string nahi hai ya invalid JSON hai, return null
+  // Example: jsonToParcel('{"id":"P001","weight":2.5}')
+  //          => {id:"P001", weight:2.5}
+  if(typeof jsonString !== "string") return null
+  try {
+    return JSON.parse(jsonString)
+  } catch (error) {
+    return null
+  }
 }
 
 export function convertToString(value) {
-  // Your code here
+  // String() se kisi bhi value ko string mein convert karo
+  // Example: convertToString(42) => "42"
+  // Example: convertToString(true) => "true"
+  // Example: convertToString(null) => "null"
+  // Example: convertToString(undefined) => "undefined"
+  return String(value)
 }
 
 export function convertToNumber(value) {
-  // Your code here
+  // Number() se value ko number mein convert karo
+  // Agar result NaN hai, toh NaN hi return karo (caller handle karega)
+  // Example: convertToNumber("42.5") => 42.5
+  // Example: convertToNumber(true) => 1
+  // Example: convertToNumber("hello") => NaN
+  // Example: convertToNumber("") => 0
+  return Number(value)
 }
 
 export function stringToChars(str) {
-  // Your code here
+  // Agar str string nahi hai, return []
+  if(typeof str !== "string") return []
+  // Array.from() se string ko characters ki array mein convert karo
+  return Array.from(str)
+  // Example: stringToChars("Dak") => ["D", "a", "k"]
+  // Example: stringToChars("") => []
 }

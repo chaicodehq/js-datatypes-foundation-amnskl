@@ -58,21 +58,58 @@
  *   isTruthy("")                 // => false
  */
 export function getDataType(value) {
-  // Your code here
+  // typeof use karo, LEKIN special cases handle karo:
+  // - typeof null === "object" (JS ka famous bug!) → return "null"
+  // - typeof [] === "object" (Array bhi object hai) → return "array"
+  // - Baaki sab ke liye typeof ki value return karo
+  // Example: getDataType(42) => "number"
+  // Example: getDataType("hello") => "string"
+  // Example: getDataType(null) => "null"
+  // Example: getDataType([1,2]) => "array"
+
+  if(value === null) return "null"
+  if(Array.isArray(value)) return "array"
+  return typeof value
 }
 
 export function isValidParcelWeight(weight) {
-  // Your code here
+  // Number.isFinite() se check karo ki weight valid finite number hai
+  // Weight positive bhi hona chahiye (> 0)
+  // Infinity, NaN, ya non-number ke liye return false
+  if(isNaN(weight) || !weight || typeof weight !== "number" || !Number.isFinite(weight) || weight <= 0 ) return false
+  return true
+  // Example: isValidParcelWeight(2.5) => true
+  // Example: isValidParcelWeight(Infinity) => false
+  // Example: isValidParcelWeight("5") => false (string hai, number nahi!)
 }
 
 export function isWholeNumber(value) {
-  // Your code here
+  // Number.isInteger() se check karo ki value whole number hai
+  // Example: isWholeNumber(42) => true
+  // Example: isWholeNumber(42.5) => false
+  // Example: isWholeNumber("42") => false
+  if(typeof value !== "number" || !Number.isInteger(value)) return false
+  return true
 }
 
 export function isNotANumber(value) {
-  // Your code here
+  // Number.isNaN() se check karo ki value specifically NaN hai
+  // NOTE: Number.isNaN() alag hai global isNaN() se!
+  // - Number.isNaN("hello") => false (string hai, NaN nahi)
+  // - isNaN("hello") => true (pehle convert karta hai)
+  // Example: isNotANumber(NaN) => true
+  // Example: isNotANumber("hello") => false
+  // Example: isNotANumber(undefined) => false
+  return Number.isNaN(value);
 }
 
 export function isTruthy(value) {
-  // Your code here
+  // Boolean(value) se check karo ki value truthy hai ya nahi
+  // JS mein Falsy values: false, 0, "", null, undefined, NaN
+  // Sab kuch aur truthy hai (including [], {}, "0", "false")!
+  // Example: isTruthy("hello") => true
+  // Example: isTruthy(0) => false
+  // Example: isTruthy([]) => true (haan, empty array truthy hai!)
+  if(!value) return false
+  return true
 }

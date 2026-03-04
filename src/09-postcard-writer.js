@@ -52,21 +52,59 @@
  *   countVowels("Namaste")     // => 3
  */
 export function writePostcard(sender, receiver, message) {
-  // Your code here
+  // Agar koi bhi param string nahi hai ya trim ke baad empty hai, return ""
+  if(typeof sender !== "string" || sender.trim() === "" || typeof receiver !== "string" || receiver.trim() === "" || typeof message !== "string" || message.trim() === "") return ""
+  // Template literal se formatted postcard banao:
+
+  return `Priy ${receiver},\n\n${message}\n\nAapka/Aapki,\n${sender}`;
+  // Example: writePostcard("Guddu", "Dadi ji", "Hum theek hain")
+  //          => "Priy Dadi ji,\n\nHum theek hain\n\nAapka/Aapki,\nGuddu"
 }
 
 export function isValidPincode(code) {
-  // Your code here
+  // Indian pincodes: 6 digits, "0" se start nahi hota
+  
+  // .startsWith("0") se check karo ki "0" se start nahi ho raha
+  // .length === 6 check karo
+  // Har character digit hona chahiye (use /^\d+$/ regex test or check each char)
+  // Agar code string nahi hai, return false
+  if(!code || typeof code !== "string" || isNaN(code)  || code.startsWith("0") || code.length !== 6 ) return false
+  return true
+  
+  //      /^\d+$/.test(code) //=> alternate of isNan(code)
+  
 }
 
 export function formatPostcardField(label, value, width) {
-  // Your code here
+  // Agar label ya value string nahi hai, return ""
+  if(typeof label !== "string" || !label || typeof value !== "string" || !value ) return ""
+  // Agar width provided, use that instead of 12
+  if(typeof width !== "number" || !width) width = 12;
+
+  // label.padEnd(width) + ": " + value — for aligned fields
+  return `${label.padEnd(width)}: ${value}` 
+  // Wait, let me simplify: return label.padEnd(12) + ": " + value
+  // Example: formatPostcardField("From", "Guddu") => "From        : Guddu"
+  // Example: formatPostcardField("To", "Dadi ji", 8) => "To      : Dadi ji"
+  
 }
 
 export function isFromState(address, stateCode) {
-  // Your code here
+  // Agar address ya stateCode string nahi hai, return false
+  if(typeof address !== "string" || !address || typeof stateCode !== "string" || !stateCode ) return false
+  // .endsWith() se check karo ki address kisi state code se end hota hai
+  return address.endsWith(stateCode)
+  // Example: isFromState("Guddu, Lucknow, UP", "UP") => true
+  // Example: isFromState("Priya, Mumbai, MH", "UP") => false
 }
 
 export function countVowels(message) {
-  // Your code here
+  // Agar message string nahi hai, return 0
+  if(typeof message !== "string" || !message) return 0
+  // .match(/[aeiouAEIOU]/g) se saare vowels dhundho
+  // Return: count (match result ki length, ya 0 agar null hai)
+  const matchArray = message.match(/[aeiouAEIOU]/g)
+  return !matchArray ? 0 : matchArray.length 
+
+  // Example: countVowels("Namaste India") => 6
 }

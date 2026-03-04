@@ -1,3 +1,5 @@
+import { areAllConfirmed } from "./05-train-coach"
+
 /**
  * 🏪 Kiryana Store Bill - Array Transform
  *
@@ -51,21 +53,54 @@
  *   formatBill([{name:"Atta",price:40,qty:2}]) // => "Atta x 2 = Rs.80"
  */
 export function getItemNames(items) {
-  // Your code here
+  // Agar items array nahi hai, return []
+  if(!Array.isArray(items)) return []
+  // .map() se sirf names nikalo
+  return items.map(item => item.name)
+  // Example: getItemNames([{name:"Atta",price:40,qty:2}]) => ["Atta"]
 }
 
 export function getAffordableItems(items, maxPrice) {
-  // Your code here
+  // Agar items array nahi hai ya maxPrice number nahi hai, return []
+  if(!Array.isArray(items) || isNaN(maxPrice) || !maxPrice) return []
+  // .filter() se items nikalo jinka price <= maxPrice
+  return items.filter(item => item.price <= maxPrice)
+  // Example: getAffordableItems([{name:"Atta",price:40},{name:"Ghee",price:500}], 100)
+  //          => [{name:"Atta",price:40}]
 }
 
 export function calculateTotal(items) {
-  // Your code here
+  // Agar items array nahi hai ya empty hai, return 0
+  if(!Array.isArray(items) || items.length === 0) return 0
+  // .reduce() se (price * qty) ka sum nikalo
+  return items.reduce((sum, item) => sum + (item.price * item.qty), 0)
+  // Example: calculateTotal([{name:"Atta",price:40,qty:2},{name:"Daal",price:80,qty:1}])
+  //          => 160
 }
 
 export function sortByPrice(items, ascending) {
-  // Your code here
+  // Agar items array nahi hai, return []
+  if(!Array.isArray(items)) return[]
+  
+  // [...items].sort() se NEW sorted array return karo (original mat badlo!)
+  if(ascending){
+    return [...items].sort((a,b) => a.price - b.price)
+  } 
+  else{
+    return [...items].sort((a,b) => b.price - a.price)
+  }
+  // ascending = true => low to high, false => high to low
+  // Example: sortByPrice([{name:"Ghee",price:500},{name:"Atta",price:40}], true)
+  //          => [{name:"Atta",price:40},{name:"Ghee",price:500}]
 }
 
 export function formatBill(items) {
-  // Your code here
+  // Agar items array nahi hai ya empty hai, return ""
+  if(!Array.isArray(items) || items.length === 0) return ""
+  // .map() se har item ko "name x qty = Rs.total" format karo
+  // Phir .join("\n") se multi-line bill banao
+  return items
+    .map(item => item.name + " x " + item.qty + " = Rs." + item.price * item.qty)
+    .join("\n")
+  // Example: formatBill([{name:"Atta",price:40,qty:2}]) => "Atta x 2 = Rs.80"
 }

@@ -48,21 +48,52 @@
  *   removeLastItem(["tamatar", "pyaaz", "mirchi"])   // => "mirchi"
  */
 export function addToCart(cart, item) {
-  // Your code here
+  // Agar cart Array nahi hai (Array.isArray use karo), return -1
+  if(!Array.isArray(cart)) return -1
+  // Agar item empty string hai ya string nahi hai, return cart.length without adding
+  if(typeof item !== "string" || item.trim() === "") return cart.length
+  // .push() se item ko cart ke end mein add karo
+  return cart.push(item);
+  // Return: new cart length (push returns this automatically)
+  // Example: addToCart(["tamatar", "pyaaz"], "mirchi") => 3
 }
 
 export function addUrgentItem(cart, item) {
-  // Your code here
+  //  Agar cart not array, return []
+  if(!Array.isArray(cart)) return []
+  //  Agar item valid string nahi hai, return cart unchanged
+  if(typeof item !== "string" || item.trim() === "") return cart;
+  //  .unshift() se item ko cart ke BEGINNING mein add karo (pehle khareedna hai!)
+  cart.unshift(item)
+  //  Return: updated cart array
+  return cart;
+  //  Example: addUrgentItem(["pyaaz", "mirchi"], "dhaniya") => ["dhaniya", "pyaaz", "mirchi"]
 }
 
 export function removeLastItem(cart) {
-  // Your code here
+  // Agar cart not array ya empty hai, return undefined
+  if(!Array.isArray(cart) || cart.length === 0) return undefined
+  // .pop() se last sabzi remove karo
+  // Return: the removed item
+  return cart.pop();
+  // Example: removeLastItem(["tamatar", "pyaaz", "mirchi"]) => "mirchi"
 }
 
 export function isInCart(cart, item) {
-  // Your code here
+  // Agar cart not array, return false
+  if(!Array.isArray(cart)) return false
+  // .includes() se check karo ki item cart mein hai ya nahi
+  return cart.indexOf(item) >= 0
+  // Example: isInCart(["tamatar", "pyaaz"], "pyaaz") => true
+  // Example: isInCart(["tamatar", "pyaaz"], "mirchi") => false
 }
 
 export function mergeCarts(cart1, cart2) {
-  // Your code here
+  // Agar koi bhi array nahi hai, usse empty array [] maan lo
+  if(!Array.isArray(cart1)) cart1 = []
+  if(!Array.isArray(cart2)) cart2 = []
+  // .concat() se do carts ko combine karo
+  // Return: new merged array
+  return cart1.concat(cart2)
+  // Example: mergeCarts(["tamatar"], ["mirchi", "adrak"]) => ["tamatar", "mirchi", "adrak"]
 }
